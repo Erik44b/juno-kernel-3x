@@ -27,21 +27,23 @@ function Clear () {
     console.log("Juno > ____")
 }
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (InBoot) {
-        if (blockSettings.readString("MostRecentFile") == "Directory") {
-            Directory()
-        } else if (blockSettings.readString("MostRecentFile") == "Version") {
-            Version()
-        } else if (blockSettings.readString("MostRecentFile") == "VersionLog") {
-            VersionLog()
-        } else if (blockSettings.readString("MostRecentFile") == "Files") {
-            Files()
-        } else if (blockSettings.readString("MostRecentFile") == "Registry") {
-            Registry()
-        } else if (blockSettings.readString("MostRecentFile") == "Help") {
-            Help()
-        } else if (blockSettings.readString("MostRecentFile") == "Clear") {
-            Clear()
+    if (blockSettings.readString("Terminal") == "t") {
+        if (InBoot) {
+            if (blockSettings.readString("MostRecentFile") == "Directory") {
+                Directory()
+            } else if (blockSettings.readString("MostRecentFile") == "Version") {
+                Version()
+            } else if (blockSettings.readString("MostRecentFile") == "VersionLog") {
+                VersionLog()
+            } else if (blockSettings.readString("MostRecentFile") == "Files") {
+                Files()
+            } else if (blockSettings.readString("MostRecentFile") == "Registry") {
+                Registry()
+            } else if (blockSettings.readString("MostRecentFile") == "Help") {
+                Help()
+            } else if (blockSettings.readString("MostRecentFile") == "Clear") {
+                Clear()
+            }
         }
     }
 })
@@ -93,6 +95,73 @@ function GoBoot () {
     "Help"
     ]
 }
+function RLA () {
+    Registry2 = true
+    blockMenu.showMenu(
+    [
+    Temporary_File_Name,
+    Temporary_File_Data,
+    "Create",
+    "Return"
+    ],
+    1,
+    MenuLocation.RightHalf,
+    [
+    img`
+        f f f f f f f f f f f 
+        f 4 4 4 4 4 4 4 4 4 f 
+        f 4 4 4 4 4 f 4 f 4 f 
+        f 4 4 4 4 4 4 f 4 4 f 
+        f 4 1 1 1 f 4 f 4 4 f 
+        f 4 1 1 1 f 4 f 4 4 f 
+        f 4 1 1 1 f 4 f 4 4 f 
+        f 4 4 4 4 4 4 f 4 4 f 
+        f 4 4 4 4 4 f 4 f 4 f 
+        f 4 4 4 4 4 4 4 4 4 f 
+        f f f f f f f f f f f 
+        `,
+    img`
+        f f f f f f f f f f f 
+        f 4 4 4 4 4 4 4 4 4 f 
+        f 4 2 2 4 4 4 4 4 4 f 
+        f 4 2 2 5 4 4 4 4 4 f 
+        f 4 4 5 5 5 4 4 4 4 f 
+        f 4 4 4 5 5 5 4 4 4 f 
+        f 4 4 4 4 5 5 d 4 4 f 
+        f 4 4 4 4 4 d f 4 4 f 
+        f 4 4 4 4 4 4 4 f f f 
+        f 4 4 4 4 4 4 4 4 4 f 
+        f f f f f f f f f f f 
+        `,
+    img`
+        f f f f f f f f f f f 
+        f 4 4 4 4 4 4 4 4 4 f 
+        f 4 4 4 4 f 4 4 4 4 f 
+        f 4 4 4 4 f 4 4 4 4 f 
+        f 4 4 4 4 f 4 4 4 4 f 
+        f 4 f f f f f f f 4 f 
+        f 4 4 4 4 f 4 4 4 4 f 
+        f 4 4 4 4 f 4 4 4 4 f 
+        f 4 4 4 4 f 4 4 4 4 f 
+        f 4 4 4 4 4 4 4 4 4 f 
+        f f f f f f f f f f f 
+        `,
+    img`
+        f f f f f f f f f f f 
+        f 4 4 4 4 4 4 4 4 4 f 
+        f 4 4 4 4 f 4 4 4 4 f 
+        f 4 4 4 f f 4 4 4 4 f 
+        f 4 4 f f f 4 4 4 4 f 
+        f 4 f f f f f f f 4 f 
+        f 4 4 f f f 4 4 4 4 f 
+        f 4 4 4 f f 4 4 4 4 f 
+        f 4 4 4 4 f 4 4 4 4 f 
+        f 4 4 4 4 4 4 4 4 4 f 
+        f f f f f f f f f f f 
+        `
+    ]
+    )
+}
 function Registry_Rename () {
     blockSettings.writeString("MostRecentFile", blockSettings.readString("DirectorySearch"))
     spriteutils.setConsoleOverlay(false)
@@ -142,210 +211,98 @@ function Registry () {
     }
 }
 function BIOS () {
-    console.log("Juno BIOS")
-    console.log("==========")
-    console.log("- Reset Juno")
-    console.log("- Wipe Juno")
-    console.log("- Update")
-    console.log("- Debug Tool")
-    console.log("- Boot")
-    console.log("> _____")
+    console.log("                Juno BIOS")
+    console.log("                =========")
+    blockMenu.setControlsEnabled(true)
+    blockMenu.showMenu(
+    [
+    "Debug Tool",
+    "Boot Juno",
+    "Check for Updates"
+    ],
+    1,
+    MenuLocation.LeftHalf,
+    [img`
+        f f f f f . f f f f f . . 
+        f 4 4 4 f . f 4 4 4 f . . 
+        f 4 4 4 f f f 4 4 4 f . . 
+        f 4 4 4 4 4 4 4 4 4 f . . 
+        f f f 4 4 4 4 4 4 4 f f f 
+        . . f 4 4 4 4 4 4 4 4 4 f 
+        f f f 4 4 4 4 4 4 4 f f f 
+        f 4 4 4 4 4 4 4 4 4 f . . 
+        f 4 4 4 f f f 4 4 4 f . . 
+        f 4 4 4 f . f 4 4 4 f . . 
+        f f f f f . f f f f f . . 
+        `, img`
+        f f f f f f f f f f f f f 
+        f 4 4 4 4 4 4 4 4 4 4 4 f 
+        f 4 4 4 4 4 4 4 4 4 4 4 f 
+        f 4 4 4 4 4 4 4 4 4 4 4 f 
+        f 4 f 4 4 4 4 4 4 4 4 4 f 
+        f 4 4 f 4 4 4 4 4 4 4 4 f 
+        f 4 4 4 f 4 4 4 4 4 4 4 f 
+        f 4 4 f 4 4 4 4 4 4 4 4 f 
+        f 4 f 4 4 4 f f f f f 4 f 
+        f 4 4 4 4 4 4 4 4 4 4 4 f 
+        f f f f f f f f f f f f f 
+        `, img`
+        f f f f f f f f f f f f f 
+        f 4 4 4 4 4 4 4 4 4 4 4 f 
+        f 4 f f f f f f f f f 4 f 
+        f 4 4 4 4 4 4 4 4 4 4 4 f 
+        f 4 f f f f f f f f f 4 f 
+        f 4 4 4 4 4 4 4 4 4 4 4 f 
+        f 4 f f f f f f f 4 4 4 f 
+        f 4 4 4 4 4 4 4 4 4 4 4 f 
+        f 4 4 4 4 4 4 4 f f f 4 f 
+        f 4 4 4 4 4 4 4 4 4 4 4 f 
+        f f f f f f f f f f f f f 
+        `]
+    )
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (InBoot) {
-        spriteutils.setConsoleOverlay(false)
-        blockSettings.writeString("DirectorySearch", game.askForString("Insert Command"))
-        if (blockSettings.exists(blockSettings.readString("DirectorySearch"))) {
-            spriteutils.setConsoleOverlay(true)
-            console.log("Juno Kernel Version " + blockSettings.readNumber("Version"))
-            console.log(" ")
-            console.log("\"" + blockSettings.readString("DirectorySearch") + "\"")
-            if (blockSettings.readString("DirectorySearch") == "Directory") {
-                Directory()
-            } else if (blockSettings.readString("DirectorySearch") == "Version") {
-                Version()
-            } else if (blockSettings.readString("DirectorySearch") == "VersionLog") {
-                VersionLog()
-            } else if (blockSettings.readString("DirectorySearch") == "Files") {
-                Files()
-            } else if (blockSettings.readString("DirectorySearch") == "Registry") {
-                Registry()
-            } else if (blockSettings.readString("DirectorySearch") == "Help") {
-                Help()
-            } else if (blockSettings.readString("DirectorySearch") == "Clear") {
-                Clear()
-            }
-        } else {
-            spriteutils.setConsoleOverlay(true)
-            console.log("Juno Kernel Version " + blockSettings.readNumber("Version"))
-            console.log(" ")
-            console.log("Error 001 - No Settings")
-            console.log("found with name \"" + blockSettings.readString("DirectorySearch") + "\"")
-            pause(100)
-            console.log(" ")
-            console.log("Available Commands:")
-            console.log(Command_List)
-            console.log(" ")
-            console.log("Juno > ____")
-        }
-    } else {
-        spriteutils.setConsoleOverlay(false)
-        blockSettings.writeString("DirectorySearch", game.askForString("Insert Command"))
-        if (blockSettings.readString("DirectorySearch") == "Reset Juno") {
-            spriteutils.setConsoleOverlay(true)
-            console.log("Juno BIOS")
-            console.log("==========")
-            console.log("Resetting Juno...")
-            blockSettings.clear()
-            console.log("Done! Reset the Kernel togo through the Setup     Process.")
-        } else if (blockSettings.readString("DirectorySearch") == "Wipe Juno") {
-            spriteutils.setConsoleOverlay(true)
-            console.log("Juno BIOS")
-            console.log("==========")
-            blockSettings.clear()
-            console.log("Juno has been wiped.")
-            pause(100)
-            scene.setBackgroundImage(img`
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                ................................................................................................................................................................
-                `)
+    if (blockSettings.readString("Terminal") == "t") {
+        if (InBoot) {
             spriteutils.setConsoleOverlay(false)
-            spriteutils.setConsoleOverlay(true)
-            console.log("Juno has been wiped.")
-            for (let index = 0; index < 123; index++) {
-                pause(5000)
+            blockSettings.writeString("DirectorySearch", game.askForString("Insert Command"))
+            if (blockSettings.exists(blockSettings.readString("DirectorySearch"))) {
+                spriteutils.setConsoleOverlay(true)
+                console.log("Juno Kernel Version " + blockSettings.readNumber("Version"))
+                console.log(" ")
+                console.log("\"" + blockSettings.readString("DirectorySearch") + "\"")
+                console.log(" ")
+                if (blockSettings.readString("DirectorySearch") == "Directory") {
+                    Directory()
+                } else if (blockSettings.readString("DirectorySearch") == "Version") {
+                    Version()
+                } else if (blockSettings.readString("DirectorySearch") == "VersionLog") {
+                    VersionLog()
+                } else if (blockSettings.readString("DirectorySearch") == "Files") {
+                    Files()
+                } else if (blockSettings.readString("DirectorySearch") == "Registry") {
+                    Registry()
+                } else if (blockSettings.readString("DirectorySearch") == "Help") {
+                    Help()
+                } else if (blockSettings.readString("DirectorySearch") == "Clear") {
+                    Clear()
+                } else if (blockSettings.readString("DirectorySearch") == "Library") {
+                    blockSettings.writeString("Terminal", "f")
+                    game.reset()
+                }
+            } else {
+                spriteutils.setConsoleOverlay(true)
+                console.log("Juno Kernel Version " + blockSettings.readNumber("Version"))
+                console.log(" ")
+                console.log("Error 001 - No Settings")
+                console.log("found with name \"" + blockSettings.readString("DirectorySearch") + "\"")
+                pause(100)
+                console.log(" ")
+                console.log("Available Commands:")
+                console.log(Command_List)
+                console.log(" ")
+                console.log("Juno > ____")
             }
-        } else if (blockSettings.readString("DirectorySearch") == "Update") {
-            spriteutils.setConsoleOverlay(true)
-            console.log("Juno BIOS")
-            console.log("==========")
-            console.log("No Updates Found.")
-        } else if (blockSettings.readString("DirectorySearch") == "Debug Tool") {
-            spriteutils.setConsoleOverlay(true)
-            console.log("Juno BIOS")
-            console.log("==========")
-            console.log("- No Bugs Noticed")
-        } else if (blockSettings.readString("DirectorySearch") == "Boot") {
-            InBoot = true
-            BootJuno()
         }
     }
 })
@@ -440,12 +397,12 @@ function Juno () {
         fffffffffffffffffffffffffffffff44444ffff4ffffff4ffffffffffffffffffffffffffffffffffffffffffffffff44444ffff4444fffffffffffffffffffffffffffffffffffffffffffffffffff
         ffffffffffffffffffffffffffffffffffffffff4fffff44ffffffffffffffffffffffffff4fffffffffffffffffffff444444ff444444ffffffffffffffffffffffffffffffffffffffffffffffffff
         ffffffffffffffffffffffffffffffffffffffff4fffff4fffffffffffffffffff444ffff44fffffffffffffffffffffffff444f44ff44ffffffffffffffffffffffffffffffffffffffffffffffffff
-        fffffffffffffffffffffffffffffffffffffff4fffff4fffffffffffffffffff44444fff44fffffffffffffffffffffffff44ff44ff44ffffffffffffffffffffffffffffffffffffffffffffffffff
-        fffffffffffffffffffffffffffffffffffffff4fffff4fff44444ff44fffffff4fff4fffffffffffff4ffff44ffffffff4444ff44ff44ffffffffffffffffffffffffffffffffffffffffffffffffff
-        fffffffffffffffffffffffffffffffffffffff4fff44fff44fff44f4444444ff444ffff4ff444444ff4f44444fffffff4444fff44ff44ffffffffffffffffffffffffffffffffffffffffffffffffff
-        fffffffffffffffffffffffffffffffffffffff4fff44ff4fff444ff444ff44fff444ff44ff4ffff4f4444ff44ffffffff444fff44ff44ffffffffffffffffffffffffffffffffffffffffffffffffff
-        fffffffffffffffffffffffffffffffffffffff4fff4ff4444444fff44fff44ffff44ff44f44ffff4f444fff44ffffffffff44ff44ff44ffffffffffffffffffffffffffffffffffffffffffffffffff
-        fffffffffffffffffffffffffffffffffffffff4ff4fff44444ffff44fffffffffff44f44f4ffff444444fff44ffffffffff44ff44ff44ffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffffffffffffffffffffffffffffffff4fffff4fffffffffffffffffff44444fff44fffffffffffffffffffffffff44ffffff44ffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffffffffffffffffffffffffffffffff4fffff4fff44444ff44fffffff4fff4fffffffffffff4ffff44ffffffff4444ffffff44ffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffffffffffffffffffffffffffffffff4fff44fff44fff44f4444444ff444ffff4ff444444ff4f44444fffffff4444fff444444ffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffffffffffffffffffffffffffffffff4fff44ff4fff444ff444ff44fff444ff44ff4ffff4f4444ff44ffffffff444fff44ffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffffffffffffffffffffffffffffffff4fff4ff4444444fff44fff44ffff44ff44f44ffff4f444fff44ffffffffff44ff44ffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffffffffffffffffffffffffffffffff4ff4fff44444ffff44fffffffffff44f44f4ffff444444fff44ffffffffff44ff44ffffffffffffffffffffffffffffffffffffffffffffffffffffff
         fffffffffffffffffffffffffffffffffffffff4f44fff44fffffff4ffffffffff44fff44ff4444ff44fffff44ffffff44444fff444444ffffffffffffffffffffffffffffffffffffffffffffffffff
         fffffffffffffffffffffffffffffffffffffff444fffff44ffffff4ffffffff4444fff44ff444ffffffffff44ffffff4444fffff4444fffffffffffffffffffffffffffffffffffffffffffffffffff
         fffffffffffffffffffffffffffffffffffffff44fffffff44fffffffffffff444ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -500,6 +457,11 @@ function Juno () {
         ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
         ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
         `)
+    Commands = false
+    Settings = false
+    System = false
+    Registry3 = false
+    Registry2 = false
     BootJuno()
 }
 function Error_Screen2 () {
@@ -600,12 +562,12 @@ function BootJuno () {
             fffffffffffffffffffffffffffffff44444ffff4ffffff4ffffffffffffffffffffffffffffffffffffffffffffffff44444ffff4444fffffffffffffffffffffffffffffffffffffffffffffffffff
             ffffffffffffffffffffffffffffffffffffffff4fffff44ffffffffffffffffffffffffff4fffffffffffffffffffff444444ff444444ffffffffffffffffffffffffffffffffffffffffffffffffff
             ffffffffffffffffffffffffffffffffffffffff4fffff4fffffffffffffffffff444ffff44fffffffffffffffffffffffff444f44ff44ffffffffffffffffffffffffffffffffffffffffffffffffff
-            fffffffffffffffffffffffffffffffffffffff4fffff4fffffffffffffffffff44444fff44fffffffffffffffffffffffff44ff44ff44ffffffffffffffffffffffffffffffffffffffffffffffffff
-            fffffffffffffffffffffffffffffffffffffff4fffff4fff44444ff44fffffff4fff4fffffffffffff4ffff44ffffffff4444ff44ff44ffffffffffffffffffffffffffffffffffffffffffffffffff
-            fffffffffffffffffffffffffffffffffffffff4fff44fff44fff44f4444444ff444ffff4ff444444ff4f44444fffffff4444fff44ff44ffffffffffffffffffffffffffffffffffffffffffffffffff
-            fffffffffffffffffffffffffffffffffffffff4fff44ff4fff444ff444ff44fff444ff44ff4ffff4f4444ff44ffffffff444fff44ff44ffffffffffffffffffffffffffffffffffffffffffffffffff
-            fffffffffffffffffffffffffffffffffffffff4fff4ff4444444fff44fff44ffff44ff44f44ffff4f444fff44ffffffffff44ff44ff44ffffffffffffffffffffffffffffffffffffffffffffffffff
-            fffffffffffffffffffffffffffffffffffffff4ff4fff44444ffff44fffffffffff44f44f4ffff444444fff44ffffffffff44ff44ff44ffffffffffffffffffffffffffffffffffffffffffffffffff
+            fffffffffffffffffffffffffffffffffffffff4fffff4fffffffffffffffffff44444fff44fffffffffffffffffffffffff44ffffff44ffffffffffffffffffffffffffffffffffffffffffffffffff
+            fffffffffffffffffffffffffffffffffffffff4fffff4fff44444ff44fffffff4fff4fffffffffffff4ffff44ffffffff4444ffffff44ffffffffffffffffffffffffffffffffffffffffffffffffff
+            fffffffffffffffffffffffffffffffffffffff4fff44fff44fff44f4444444ff444ffff4ff444444ff4f44444fffffff4444fff444444ffffffffffffffffffffffffffffffffffffffffffffffffff
+            fffffffffffffffffffffffffffffffffffffff4fff44ff4fff444ff444ff44fff444ff44ff4ffff4f4444ff44ffffffff444fff44ffffffffffffffffffffffffffffffffffffffffffffffffffffff
+            fffffffffffffffffffffffffffffffffffffff4fff4ff4444444fff44fff44ffff44ff44f44ffff4f444fff44ffffffffff44ff44ffffffffffffffffffffffffffffffffffffffffffffffffffffff
+            fffffffffffffffffffffffffffffffffffffff4ff4fff44444ffff44fffffffffff44f44f4ffff444444fff44ffffffffff44ff44ffffffffffffffffffffffffffffffffffffffffffffffffffffff
             fffffffffffffffffffffffffffffffffffffff4f44fff44fffffff4ffffffffff44fff44ff4444ff44fffff44ffffff44444fff444444ffffffffffffffffffffffffffffffffffffffffffffffffff
             fffffffffffffffffffffffffffffffffffffff444fffff44ffffff4ffffffff4444fff44ff444ffffffffff44ffffff4444fffff4444fffffffffffffffffffffffffffffffffffffffffffffffffff
             fffffffffffffffffffffffffffffffffffffff44fffffff44fffffffffffff444ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -785,7 +747,11 @@ function BootJuno () {
             ................................................................................................................................................................
             `)
         BootText.setText(" ")
-        Juno_Terminal()
+        if (blockSettings.readString("Terminal") == "f") {
+            Juno_Library()
+        } else {
+            Juno_Terminal()
+        }
     } else {
         scene.setBackgroundImage(img`
             ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -897,11 +863,11 @@ function BootJuno () {
             ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff44ffffff4fffffffffffffffffffffffffffffffffffffffffffffffffffff
             ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff4ffffffffffffff4fffffffffffff4444fff44ffffffffffffffff
             ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff4ff4ffffffffff444ff4fffffffffffff4444ff4444fffffffffffffff
-            ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff4f4ff4ff44444f44ff4f444f4f44ffffffff4ff4ff4fffffffffffffff
-            ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff4f4f4ff4f44f4ff44f4f4fff44f4fffffff44ff4ff4fffffffffffffff
-            ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff4fff444ff4ffffff4f44ff4444f4ffffff44fff4ff4fffffffffffffff
-            ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff44ff44ffffffff44ff4f44fffff4fffffff44ff4ff4fffffffffffffff
-            ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff4ffff4fffffff44fffffffffffffffffffff4ff4ff4fffffffffffffff
+            ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff4f4ff4ff44444f44ff4f444f4f44ffffffff4fffff4fffffffffffffff
+            ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff4f4f4ff4f44f4ff44f4f4fff44f4fffffff44fffff4fffffffffffffff
+            ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff4fff444ff4ffffff4f44ff4444f4ffffff44fff4444fffffffffffffff
+            ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff44ff44ffffffff44ff4f44fffff4fffffff44ff4ffffffffffffffffff
+            ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff4ffff4fffffff44fffffffffffffffffffff4ff4ffffffffffffffffff
             fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff4444ff4444fffffffffffffff
             fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff444ffff44ffffffffffffffff
             ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -935,6 +901,8 @@ function Juno_Terminal () {
     pause(500)
     console.log("Data Used: " + blockSettings.list().length + " Settings, " + ("" + Command_List.length + " Command(s)"))
     pause(500)
+    console.log("--Use the Library Command to switch to the Library GUI--")
+    console.log(" ")
     if (Command_List.length > 0) {
         pause(500)
         if (blockSettings.exists("MostRecentFile")) {
@@ -1022,12 +990,8 @@ function Error_Screen () {
 }
 function Files () {
     blockSettings.writeString("MostRecentFile", blockSettings.readString("DirectorySearch"))
-    console.log(" ")
-    console.log("Files:")
     pause(100)
     Setting__Command_List()
-    console.log(" ")
-    console.log("Juno > ____")
 }
 function Registry_View () {
     blockSettings.writeString("MostRecentFile", blockSettings.readString("DirectorySearch"))
@@ -1039,7 +1003,6 @@ function Registry_View () {
         console.log("\"" + Temporary_File_Name + "\"")
         console.log(blockSettings.readString(Temporary_File_Name))
         console.log(" ")
-        console.log("Juno > ____")
     } else {
         spriteutils.setConsoleOverlay(true)
         console.log("Juno Kernel Version " + blockSettings.readNumber("Version"))
@@ -1097,6 +1060,212 @@ function VersionLog () {
     console.log(" ")
     console.log("Juno > ____")
 }
+function Juno_Library () {
+    spriteutils.setConsoleOverlay(true)
+    scene.setBackgroundImage(img`
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffff444444444fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffff4444fffff4ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffff44ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffff44ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffffffffffff444ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffffffffffff444ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffffffffffff44fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffffffffffff44fffff444ffffff44fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffffffffffff44fffff444ffffff44f4fffffff444fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffff444fff444fffffff44ff4ffff4444444fff444444fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffff44ffff44fffffff444f44ff4444ff44ff44ff444444fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffff44ffff44fffffff44ff44ff44ffff44ff44fff4f444fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffff4fffff44ffffff44fff4f444fffff44ff4fffffff44fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffffffffff44fffff44fffff444fff4444fffff44fff4ffffff44ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffffffffff44fffff44fffff44ffff44fffffff44fff4ffffff44ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffffffffff4ffffff444f4444ffff44ffffffff44fff44fff444fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffff44ffffff4444444fffff44ffffffff44fff4444444ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffff4fffffffff444fffffff4fffffffff44ffff4444ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffffffff44ffffffffffffffffffffffffffffff4ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffff44fff44444444444444444444444444444444444444444444444444444fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffff44ff444444444444444444444444444444444444444444444444444444fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffff44444ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffff44ffffff4ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffffffffffff4ffffffffffffff4fffffffffffff4444fff44fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffffffff4ff4ffffffffff444ff4fffffffffffff4444ff4444ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffffffff4f4ff4ff44444f44ff4f444f4f44ffffffff4fffff4ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffffffff4f4f4ff4f44f4ff44f4f4fff44f4fffffff44fffff4ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffffffff4fff444ff4ffffff4f44ff4444f4ffffff44fff4444ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffffffff44ff44ffffffff44ff4f44fffff4fffffff44ff4fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffffffff4ffff4fffffff44fffffffffffffffffffff4ff4fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffff4444ff4444ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffff444ffff44fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        `)
+    Commands = false
+    Registry3 = false
+    Registry2 = false
+    blockMenu.showMenu(
+    [
+    "Programs",
+    "Commands",
+    "Settings",
+    "System",
+    "Power"
+    ],
+    1,
+    MenuLocation.RightHalf,
+    [
+    img`
+        f f f f f f f f f f f 
+        f 4 4 4 4 4 4 4 4 4 f 
+        f 4 4 4 f f f 4 4 4 f 
+        f 4 f f f f f 4 4 4 f 
+        f 4 4 4 4 f f 4 4 4 f 
+        f 4 4 4 4 f f 4 4 4 f 
+        f 4 4 4 4 f f 4 4 4 f 
+        f 4 4 4 4 f f 4 4 4 f 
+        f 4 f f f f f f f 4 f 
+        f 4 4 4 4 4 4 4 4 4 f 
+        f f f f f f f f f f f 
+        `,
+    img`
+        f f f f f f f f f f f 
+        f 4 4 4 4 4 4 4 4 4 f 
+        f 4 4 4 4 4 4 4 4 4 f 
+        f 4 4 4 4 4 4 4 4 4 f 
+        f 4 f 4 4 4 4 4 4 4 f 
+        f 4 4 f 4 4 4 4 4 4 f 
+        f 4 4 4 f 4 4 4 4 4 f 
+        f 4 4 f 4 4 4 4 4 4 f 
+        f 4 f 4 4 4 f f f 4 f 
+        f 4 4 4 4 4 4 4 4 4 f 
+        f f f f f f f f f f f 
+        `,
+    img`
+        f f f f f f f f f f f 
+        f 4 4 4 4 4 4 4 4 4 f 
+        f 4 f f f f f f f 4 f 
+        f 4 4 4 4 4 4 4 4 4 f 
+        f 4 f f f f f f f 4 f 
+        f 4 4 4 4 4 4 4 4 4 f 
+        f 4 f f f f f f f 4 f 
+        f 4 4 4 4 4 4 4 4 4 f 
+        f 4 f f f 5 4 4 4 4 f 
+        f 4 4 4 4 4 4 4 4 4 f 
+        f f f f f f f f f f f 
+        `,
+    img`
+        f f f f f . f f f f f 
+        f 4 4 4 f . f 4 4 4 f 
+        f 4 f 4 f f f 4 f 4 f 
+        f 4 4 4 4 4 4 4 4 4 f 
+        f f f 4 f f f 4 f f f 
+        . . f 4 f . f 4 f . . 
+        f f f 4 f f f 4 f f f 
+        f 4 4 4 4 4 4 4 4 4 f 
+        f 4 f 4 f f f 4 f 4 f 
+        f 4 4 4 f . f 4 4 4 f 
+        f f f f f . f f f f f 
+        `,
+    img`
+        f f f f f f f f f f f 
+        f 4 4 4 4 4 4 4 4 4 f 
+        f 4 f f 4 f 4 f f 4 f 
+        f 4 f 4 4 f 4 4 f 4 f 
+        f 4 f 4 4 f 4 4 f 4 f 
+        f 4 f 4 4 f 4 4 f 4 f 
+        f 4 f 4 4 4 4 4 f 4 f 
+        f 4 f 4 4 4 4 4 f 4 f 
+        f 4 f f f f f f f 4 f 
+        f 4 4 4 4 4 4 4 4 4 f 
+        f f f f f f f f f f f 
+        `
+    ]
+    )
+}
 function Registry_Delete () {
     blockSettings.writeString("MostRecentFile", blockSettings.readString("DirectorySearch"))
     Temporary_File_Name = game.askForString("Insert File Name")
@@ -1117,15 +1286,1054 @@ function Registry_Delete () {
         console.log("Juno > ____")
     }
 }
+blockMenu.onMenuOptionSelected(function (option, index) {
+    if (InBoot) {
+        if (System) {
+            if (option == "Terminal Toggle") {
+                blockSettings.writeString("Terminal", "t")
+                game.reset()
+            } else if (option == "System Reset") {
+                blockSettings.clear()
+                game.reset()
+            }
+        } else {
+            if (Commands) {
+                if (Registry3) {
+                    if (Registry2) {
+                        if (option == Temporary_File_Name) {
+                            Temporary_File_Name = game.askForString("Insert Name")
+                            RLA()
+                        } else if (option == Temporary_File_Data) {
+                            Temporary_File_Data = game.askForString("Insert Data")
+                            RLA()
+                        } else if (option == "Create") {
+                            blockSettings.writeString(Temporary_File_Name, Temporary_File_Data)
+                            spriteutils.setConsoleOverlay(false)
+                            spriteutils.setConsoleOverlay(true)
+                            Juno_Library()
+                        } else if (option == "Return") {
+                            Registry2 = false
+                            Registry3 = true
+                            blockMenu.showMenu(
+                            [
+                            "Add",
+                            "Edit",
+                            "Rename",
+                            "Delete",
+                            "Return"
+                            ],
+                            1,
+                            MenuLocation.RightHalf,
+                            [
+                            img`
+                                f f f f f f f f f f f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f 4 4 4 4 f 4 4 4 4 f 
+                                f 4 4 4 4 f 4 4 4 4 f 
+                                f 4 4 4 4 f 4 4 4 4 f 
+                                f 4 f f f f f f f 4 f 
+                                f 4 4 4 4 f 4 4 4 4 f 
+                                f 4 4 4 4 f 4 4 4 4 f 
+                                f 4 4 4 4 f 4 4 4 4 f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f f f f f f f f f f f 
+                                `,
+                            img`
+                                f f f f f f f f f f f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f 4 4 4 4 4 f 4 f 4 f 
+                                f 4 4 4 4 4 4 f 4 4 f 
+                                f 4 1 1 1 f 4 f 4 4 f 
+                                f 4 1 1 1 f 4 f 4 4 f 
+                                f 4 1 1 1 f 4 f 4 4 f 
+                                f 4 4 4 4 4 4 f 4 4 f 
+                                f 4 4 4 4 4 f 4 f 4 f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f f f f f f f f f f f 
+                                `,
+                            img`
+                                f f f f f f f f f f f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f 4 2 2 4 4 4 4 4 4 f 
+                                f 4 2 2 5 4 4 4 4 4 f 
+                                f 4 4 5 5 5 4 4 4 4 f 
+                                f 4 4 4 5 5 5 4 4 4 f 
+                                f 4 4 4 4 5 5 d 4 4 f 
+                                f 4 4 4 4 4 d f 4 4 f 
+                                f 4 4 4 4 4 4 4 f f f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f f f f f f f f f f f 
+                                `,
+                            img`
+                                f f f f f f f f f f f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f 4 4 f d 4 4 4 4 4 f 
+                                f 4 4 d 5 5 4 4 4 4 f 
+                                f 4 4 4 5 5 5 4 4 4 f 
+                                f 4 4 4 4 5 5 5 4 4 f 
+                                f 4 4 4 4 4 5 2 2 4 f 
+                                f 4 4 4 4 4 4 2 2 e f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f f f f f f f f f f f 
+                                `,
+                            img`
+                                f f f f f f f f f f f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f 4 4 4 4 f 4 4 4 4 f 
+                                f 4 4 4 f f 4 4 4 4 f 
+                                f 4 4 f f f 4 4 4 4 f 
+                                f 4 f f f f f f f 4 f 
+                                f 4 4 f f f 4 4 4 4 f 
+                                f 4 4 4 f f 4 4 4 4 f 
+                                f 4 4 4 4 f 4 4 4 4 f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f f f f f f f f f f f 
+                                `
+                            ]
+                            )
+                        }
+                    } else {
+                        if (option == "Add") {
+                            Temporary_File_Name = "[Insert Name]"
+                            Temporary_File_Data = "[Insert Data]"
+                            RLA()
+                        } else if (option == "Edit") {
+                            Temporary_File_Name = game.askForString("Insert Name")
+                            Temporary_File_Data = game.askForString("Insert New Data")
+                            blockSettings.writeString(Temporary_File_Name, Temporary_File_Data)
+                            Juno_Library()
+                        } else if (option == "Rename") {
+                            OldTempFileName = game.askForString("Insert Old Name")
+                            Temporary_File_Name = game.askForString("Insert New Name")
+                            blockSettings.writeString(Temporary_File_Name, blockSettings.readString(OldTempFileName))
+                            blockSettings.remove(OldTempFileName)
+                            if (OldTempFileName == "Bootloader") {
+                                blockMenu.closeMenu()
+                                scene.setBackgroundImage(img`
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    ................................................................................................................................................................
+                                    `)
+                                spriteutils.setConsoleOverlay(false)
+                                spriteutils.setConsoleOverlay(true)
+                                Error_Screen2()
+                            } else {
+                                Juno_Library()
+                            }
+                        } else if (option == "Delete") {
+                            Temporary_File_Name = game.askForString("Insert Name")
+                            if (blockSettings.exists(Temporary_File_Name)) {
+                                blockSettings.remove(Temporary_File_Name)
+                                if (OldTempFileName == "Bootloader") {
+                                    blockMenu.closeMenu()
+                                    scene.setBackgroundImage(img`
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        ................................................................................................................................................................
+                                        `)
+                                    spriteutils.setConsoleOverlay(false)
+                                    spriteutils.setConsoleOverlay(true)
+                                    Error_Screen()
+                                } else {
+                                    Juno_Library()
+                                }
+                            } else {
+                                Juno_Library()
+                            }
+                        } else if (option == "Return") {
+                            Registry2 = false
+                            Registry3 = false
+                            Commands = true
+                            blockMenu.showMenu(
+                            [
+                            "Directory",
+                            "Registry",
+                            "Version",
+                            "Files",
+                            "Bootloader",
+                            "Return"
+                            ],
+                            1,
+                            MenuLocation.RightHalf,
+                            [
+                            img`
+                                f f f f f f f f f f f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f 4 f f f f f f f 4 f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f 4 f f f f f f f 4 f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f 4 f f f f f f f 4 f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f 4 f f f f f f f 4 f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f f f f f f f f f f f 
+                                `,
+                            img`
+                                f f f f f f f f f f f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f 4 f 4 4 f 4 4 f 4 f 
+                                f 4 f 4 f 4 f 4 f 4 f 
+                                f 4 4 f f 4 f f 4 4 f 
+                                f 4 4 f 4 4 4 f 4 4 f 
+                                f 4 4 f f 4 f f 4 4 f 
+                                f 4 f 4 f 4 f 4 f 4 f 
+                                f 4 f 4 4 f 4 4 f 4 f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f f f f f f f f f f f 
+                                `,
+                            img`
+                                f f f f f f f f f f f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f 4 4 4 f f f 4 4 4 f 
+                                f 4 4 f 4 4 4 f 4 4 f 
+                                f 4 f 4 4 4 4 4 f 4 f 
+                                f 4 f 4 f 4 f 4 f 4 f 
+                                f 4 f 4 4 4 4 4 f 4 f 
+                                f 4 4 f 4 4 4 f 4 4 f 
+                                f 4 4 4 f f f 4 4 4 f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f f f f f f f f f f f 
+                                `,
+                            img`
+                                f f f f f f f f f f f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f 4 4 4 4 4 f f f 4 f 
+                                f 4 4 4 4 f 7 7 f 4 f 
+                                f 4 f f f f f f f 4 f 
+                                f 4 f 5 5 5 5 5 f 4 f 
+                                f 4 f 5 5 5 5 5 f 4 f 
+                                f 4 f 5 5 5 5 5 f 4 f 
+                                f 4 f f f f f f f 4 f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f f f f f f f f f f f 
+                                `,
+                            img`
+                                f f f f f f f f f f f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f 4 f f f f f f f 4 f 
+                                f 4 f d d d f 5 f 4 f 
+                                f 4 f f f d f 5 f 4 f 
+                                f 4 f d f d f 5 f 4 f 
+                                f 4 f f f d f 5 f 4 f 
+                                f 4 f d d d f 5 f 4 f 
+                                f 4 f f f f f f f 4 f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f f f f f f f f f f f 
+                                `,
+                            img`
+                                f f f f f f f f f f f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f 4 4 4 4 f 4 4 4 4 f 
+                                f 4 4 4 f f 4 4 4 4 f 
+                                f 4 4 f f f 4 4 4 4 f 
+                                f 4 f f f f f f f 4 f 
+                                f 4 4 f f f 4 4 4 4 f 
+                                f 4 4 4 f f 4 4 4 4 f 
+                                f 4 4 4 4 f 4 4 4 4 f 
+                                f 4 4 4 4 4 4 4 4 4 f 
+                                f f f f f f f f f f f 
+                                `
+                            ]
+                            )
+                        }
+                    }
+                } else {
+                    if (option == "Directory") {
+                        blockMenu.closeMenu()
+                        Directory()
+                        pause(5000)
+                        spriteutils.setConsoleOverlay(false)
+                        spriteutils.setConsoleOverlay(true)
+                        Juno_Library()
+                    } else if (option == "Registry") {
+                        Registry3 = true
+                        blockMenu.showMenu(
+                        [
+                        "Add",
+                        "Edit",
+                        "Rename",
+                        "Delete",
+                        "Return"
+                        ],
+                        1,
+                        MenuLocation.RightHalf,
+                        [
+                        img`
+                            f f f f f f f f f f f 
+                            f 4 4 4 4 4 4 4 4 4 f 
+                            f 4 4 4 4 f 4 4 4 4 f 
+                            f 4 4 4 4 f 4 4 4 4 f 
+                            f 4 4 4 4 f 4 4 4 4 f 
+                            f 4 f f f f f f f 4 f 
+                            f 4 4 4 4 f 4 4 4 4 f 
+                            f 4 4 4 4 f 4 4 4 4 f 
+                            f 4 4 4 4 f 4 4 4 4 f 
+                            f 4 4 4 4 4 4 4 4 4 f 
+                            f f f f f f f f f f f 
+                            `,
+                        img`
+                            f f f f f f f f f f f 
+                            f 4 4 4 4 4 4 4 4 4 f 
+                            f 4 4 4 4 4 f 4 f 4 f 
+                            f 4 4 4 4 4 4 f 4 4 f 
+                            f 4 1 1 1 f 4 f 4 4 f 
+                            f 4 1 1 1 f 4 f 4 4 f 
+                            f 4 1 1 1 f 4 f 4 4 f 
+                            f 4 4 4 4 4 4 f 4 4 f 
+                            f 4 4 4 4 4 f 4 f 4 f 
+                            f 4 4 4 4 4 4 4 4 4 f 
+                            f f f f f f f f f f f 
+                            `,
+                        img`
+                            f f f f f f f f f f f 
+                            f 4 4 4 4 4 4 4 4 4 f 
+                            f 4 2 2 4 4 4 4 4 4 f 
+                            f 4 2 2 5 4 4 4 4 4 f 
+                            f 4 4 5 5 5 4 4 4 4 f 
+                            f 4 4 4 5 5 5 4 4 4 f 
+                            f 4 4 4 4 5 5 d 4 4 f 
+                            f 4 4 4 4 4 d f 4 4 f 
+                            f 4 4 4 4 4 4 4 f f f 
+                            f 4 4 4 4 4 4 4 4 4 f 
+                            f f f f f f f f f f f 
+                            `,
+                        img`
+                            f f f f f f f f f f f 
+                            f 4 4 4 4 4 4 4 4 4 f 
+                            f 4 4 4 4 4 4 4 4 4 f 
+                            f 4 4 f d 4 4 4 4 4 f 
+                            f 4 4 d 5 5 4 4 4 4 f 
+                            f 4 4 4 5 5 5 4 4 4 f 
+                            f 4 4 4 4 5 5 5 4 4 f 
+                            f 4 4 4 4 4 5 2 2 4 f 
+                            f 4 4 4 4 4 4 2 2 e f 
+                            f 4 4 4 4 4 4 4 4 4 f 
+                            f f f f f f f f f f f 
+                            `,
+                        img`
+                            f f f f f f f f f f f 
+                            f 4 4 4 4 4 4 4 4 4 f 
+                            f 4 4 4 4 f 4 4 4 4 f 
+                            f 4 4 4 f f 4 4 4 4 f 
+                            f 4 4 f f f 4 4 4 4 f 
+                            f 4 f f f f f f f 4 f 
+                            f 4 4 f f f 4 4 4 4 f 
+                            f 4 4 4 f f 4 4 4 4 f 
+                            f 4 4 4 4 f 4 4 4 4 f 
+                            f 4 4 4 4 4 4 4 4 4 f 
+                            f f f f f f f f f f f 
+                            `
+                        ]
+                        )
+                    } else if (option == "Version") {
+                        blockMenu.closeMenu()
+                        console.log("Juno 32")
+                        console.log("This Version is up to    date")
+                        pause(5000)
+                        spriteutils.setConsoleOverlay(false)
+                        spriteutils.setConsoleOverlay(true)
+                        Juno_Library()
+                    } else if (option == "Files") {
+                        blockMenu.closeMenu()
+                        Files()
+                        pause(5000)
+                        spriteutils.setConsoleOverlay(false)
+                        spriteutils.setConsoleOverlay(true)
+                        Juno_Library()
+                    } else if (option == "Bootloader") {
+                        blockMenu.closeMenu()
+                        console.log("Juno Bootloader")
+                        console.log("version 27")
+                        pause(5000)
+                        spriteutils.setConsoleOverlay(false)
+                        spriteutils.setConsoleOverlay(true)
+                        Juno_Library()
+                    } else if (option == "Return") {
+                        Registry2 = false
+                        Registry3 = false
+                        Commands = false
+                        Juno_Library()
+                    }
+                }
+            } else {
+                if (option == "Programs") {
+                    blockMenu.closeMenu()
+                    console.log("!! Feature currently in  Development !!")
+                    pause(1000)
+                    spriteutils.setConsoleOverlay(false)
+                    spriteutils.setConsoleOverlay(true)
+                    Juno_Library()
+                } else if (option == "Commands") {
+                    Commands = true
+                    blockMenu.showMenu(
+                    [
+                    "Directory",
+                    "Registry",
+                    "Version",
+                    "Files",
+                    "Bootloader",
+                    "Return"
+                    ],
+                    1,
+                    MenuLocation.RightHalf,
+                    [
+                    img`
+                        f f f f f f f f f f f 
+                        f 4 4 4 4 4 4 4 4 4 f 
+                        f 4 f f f f f f f 4 f 
+                        f 4 4 4 4 4 4 4 4 4 f 
+                        f 4 f f f f f f f 4 f 
+                        f 4 4 4 4 4 4 4 4 4 f 
+                        f 4 f f f f f f f 4 f 
+                        f 4 4 4 4 4 4 4 4 4 f 
+                        f 4 f f f f f f f 4 f 
+                        f 4 4 4 4 4 4 4 4 4 f 
+                        f f f f f f f f f f f 
+                        `,
+                    img`
+                        f f f f f f f f f f f 
+                        f 4 4 4 4 4 4 4 4 4 f 
+                        f 4 f 4 4 f 4 4 f 4 f 
+                        f 4 f 4 f 4 f 4 f 4 f 
+                        f 4 4 f f 4 f f 4 4 f 
+                        f 4 4 f 4 4 4 f 4 4 f 
+                        f 4 4 f f 4 f f 4 4 f 
+                        f 4 f 4 f 4 f 4 f 4 f 
+                        f 4 f 4 4 f 4 4 f 4 f 
+                        f 4 4 4 4 4 4 4 4 4 f 
+                        f f f f f f f f f f f 
+                        `,
+                    img`
+                        f f f f f f f f f f f 
+                        f 4 4 4 4 4 4 4 4 4 f 
+                        f 4 4 4 f f f 4 4 4 f 
+                        f 4 4 f 4 4 4 f 4 4 f 
+                        f 4 f 4 4 4 4 4 f 4 f 
+                        f 4 f 4 f 4 f 4 f 4 f 
+                        f 4 f 4 4 4 4 4 f 4 f 
+                        f 4 4 f 4 4 4 f 4 4 f 
+                        f 4 4 4 f f f 4 4 4 f 
+                        f 4 4 4 4 4 4 4 4 4 f 
+                        f f f f f f f f f f f 
+                        `,
+                    img`
+                        f f f f f f f f f f f 
+                        f 4 4 4 4 4 4 4 4 4 f 
+                        f 4 4 4 4 4 f f f 4 f 
+                        f 4 4 4 4 f 7 7 f 4 f 
+                        f 4 f f f f f f f 4 f 
+                        f 4 f 5 5 5 5 5 f 4 f 
+                        f 4 f 5 5 5 5 5 f 4 f 
+                        f 4 f 5 5 5 5 5 f 4 f 
+                        f 4 f f f f f f f 4 f 
+                        f 4 4 4 4 4 4 4 4 4 f 
+                        f f f f f f f f f f f 
+                        `,
+                    img`
+                        f f f f f f f f f f f 
+                        f 4 4 4 4 4 4 4 4 4 f 
+                        f 4 f f f f f f f 4 f 
+                        f 4 f d d d f 5 f 4 f 
+                        f 4 f f f d f 5 f 4 f 
+                        f 4 f d f d f 5 f 4 f 
+                        f 4 f f f d f 5 f 4 f 
+                        f 4 f d d d f 5 f 4 f 
+                        f 4 f f f f f f f 4 f 
+                        f 4 4 4 4 4 4 4 4 4 f 
+                        f f f f f f f f f f f 
+                        `,
+                    img`
+                        f f f f f f f f f f f 
+                        f 4 4 4 4 4 4 4 4 4 f 
+                        f 4 4 4 4 f 4 4 4 4 f 
+                        f 4 4 4 f f 4 4 4 4 f 
+                        f 4 4 f f f 4 4 4 4 f 
+                        f 4 f f f f f f f 4 f 
+                        f 4 4 f f f 4 4 4 4 f 
+                        f 4 4 4 f f 4 4 4 4 f 
+                        f 4 4 4 4 f 4 4 4 4 f 
+                        f 4 4 4 4 4 4 4 4 4 f 
+                        f f f f f f f f f f f 
+                        `
+                    ]
+                    )
+                } else if (option == "Settings") {
+                    blockMenu.closeMenu()
+                    Registry_View()
+                    pause(1000)
+                    spriteutils.setConsoleOverlay(false)
+                    spriteutils.setConsoleOverlay(true)
+                    Juno_Library()
+                } else if (option == "System") {
+                    System = true
+                    blockMenu.showMenu(
+                    ["Terminal Toggle", "System Reset"],
+                    1,
+                    MenuLocation.RightHalf,
+                    [img`
+                        f f f f f f f f f f f f f 
+                        f 4 4 4 4 4 4 4 4 4 4 4 f 
+                        f 4 4 4 4 4 4 4 4 4 4 4 f 
+                        f 4 4 4 4 4 4 4 4 4 4 4 f 
+                        f 4 f 4 4 4 4 4 4 4 4 4 f 
+                        f 4 4 f 4 4 4 4 4 4 4 4 f 
+                        f 4 4 4 f 4 4 4 4 4 4 4 f 
+                        f 4 4 f 4 4 4 4 4 4 4 4 f 
+                        f 4 f 4 4 4 f f f f f 4 f 
+                        f 4 4 4 4 4 4 4 4 4 4 4 f 
+                        f f f f f f f f f f f f f 
+                        `, img`
+                        f f f f f f f . . . . 
+                        f 4 4 4 4 4 . 4 4 . . 
+                        f 4 4 4 4 4 . 4 . 4 . 
+                        f 4 4 4 4 . 4 . . 4 . 
+                        f 4 4 4 4 4 . 4 4 . . 
+                        f 4 4 4 4 4 4 . 4 4 . 
+                        f 4 4 4 4 4 . 4 . 4 . 
+                        f 4 4 4 4 . 4 . 4 . . 
+                        f 4 4 4 4 4 . 4 . 4 . 
+                        f 4 4 4 4 4 . 4 4 . . 
+                        f f f f f f f f . f . 
+                        `]
+                    )
+                } else if (option == "Power") {
+                    blockMenu.closeMenu()
+                    scene.setBackgroundImage(img`
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffffffffffffff444444fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffff4444444444444444ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffffff44444444444444444ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffff4444444fffffffff44fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffff4444ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffff444fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffff444fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffffffffff4444fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffffffffff4444fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffffffffff4444fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffff44444fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffff4444ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffff4444ffffffffff444ffffffffffff444ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffff4444fffffffff44444fffffffffff444ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffff4444ffffffff444444fffffffffff444fff44fffffffffff444444ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffffffff4444fffffff44444fffffffffffff4444ff444ffffffff4444444444ffffff44444444fffffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffffffff4444fffffff4444fffffffffffff4444fff444ffffff444444444444ffffff44444444444ffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffffffff444ffffffff4444fffffffffffff444ffff444fffff444444fff4444ffff444444f44444444ffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffffffff444fffffff444ffffffffffffff4444fff4444ff4444444fffff444ffff4444fff4444444444fffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffffffff444fffffff444fffffffffffff4444fff4444fff44444fffffff444fff4444fffff444ff44444ffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffff4444fffffff444fffffffffffff4444fff444ff44444ffffffff4444fff4444fffffffffff4444ffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffff444ffffffff444ffffffffffff4444ffff444ff44444ffffffff4444fff444ffffffffffff4444ffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffffff444fffffffff444fffffffffff4444fffff44444444fffffffff4444ffff444ffffffffffff444fffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffffff444fffffffff444ffffffffff44444fffff4444444ffffffffff4444ffff44ffffffffffff444ffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffffff444fffffffff444fffffffff44444ffffff44444ffffffffffff444fffff44ffffffffffff444ffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffff444ffffffffff444fffffff44444fffffff4444ffffffffffffff444fffff444ffffffff4444ffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffff444ffffffffff44444fff4444444fffffff4444ffffffffffffff444fffff4444ffffff44444ffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffff4444fffffffffff444444444444fffffffff444fffffffffffffff444fffff4444fffff44444fffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffff4444fffffffffff444444444444fffffffff444fffffffffffffff444fffff4444444444444ffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffff444ffffffffffffffff444444ffffffffffff44ffffffffffffffff444fffffff44444444fffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffff444ffffffffffffffffffffffffffffffffffffffffffffffffffff444fffffffff4444fffffffffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffff444ffffffffffffffffffffffffffffffffffffffffffffffffffffff44ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffff44ffffffff444fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffff444fffffff44444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444fffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffff444fffff4444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444fffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffff4444ffff444fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffff444444444ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffff44444444fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffff44444ffff4ffffff4ffffffffffffffffffffffffffffffffffffffffffffffff44444ffff4444fffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffff4fffff44ffffffffffffffffffffffffff4fffffffffffffffffffff444444ff444444ffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffff4fffff4fffffffffffffffffff444ffff44fffffffffffffffffffffffff444f44ff44ffffffffffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffff4fffff4fffffffffffffffffff44444fff44fffffffffffffffffffffffff44ffffff44ffffffffffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffff4fffff4fff44444ff44fffffff4fff4fffffffffffff4ffff44ffffffff4444ffffff44ffffffffffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffff4fff44fff44fff44f4444444ff444ffff4ff444444ff4f44444fffffff4444fff444444ffffffffffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffff4fff44ff4fff444ff444ff44fff444ff44ff4ffff4f4444ff44ffffffff444fff44ffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffff4fff4ff4444444fff44fff44ffff44ff44f44ffff4f444fff44ffffffffff44ff44ffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffff4ff4fff44444ffff44fffffffffff44f44f4ffff444444fff44ffffffffff44ff44ffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffff4f44fff44fffffff4ffffffffff44fff44ff4444ff44fffff44ffffff44444fff444444ffffffffffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffff444fffff44ffffff4ffffffff4444fff44ff444ffffffffff44ffffff4444fffff4444fffffffffffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffff44fffffff44fffffffffffff444ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        `)
+                    textSprite = textsprite.create("Turning off the System...", 0, 4)
+                    textSprite.setPosition(80, 100)
+                    music.playSoundEffect(music.createSoundEffect(
+                    WaveShape.Sawtooth,
+                    141,
+                    0,
+                    255,
+                    0,
+                    1000,
+                    SoundExpressionEffect.None,
+                    InterpolationCurve.Linear
+                    ), SoundExpressionPlayMode.UntilDone)
+                    scene.setBackgroundImage(img`
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        ................................................................................................................................................................
+                        `)
+                    textSprite.setText("")
+                }
+            }
+        }
+    } else {
+        if (option == "Debug Tool") {
+            blockMenu.closeMenu()
+            console.log("!! Feature currently in  Development !!")
+            pause(1000)
+            spriteutils.setConsoleOverlay(false)
+            spriteutils.setConsoleOverlay(true)
+            BIOS()
+        } else if (option == "Boot Juno") {
+            blockMenu.closeMenu()
+            spriteutils.setConsoleOverlay(false)
+            BootJuno()
+        } else if (option == "Check for Updates") {
+            blockMenu.closeMenu()
+            console.log("Version 32 [Most Recent  Version]")
+            pause(1000)
+            spriteutils.setConsoleOverlay(false)
+            spriteutils.setConsoleOverlay(true)
+            BIOS()
+        }
+    }
+})
+let textSprite: TextSprite = null
 let OldTempFileData = ""
 let RegistryView001BooleanCreate = ""
-let Temporary_File_Name = ""
-let Temporary_File_Data = ""
+let Registry3 = false
+let System = false
+let Settings = false
+let Commands = false
 let OldTempFileName = ""
+let Temporary_File_Data = ""
+let Temporary_File_Name = ""
+let Registry2 = false
 let SystemReinstallVerificationBoolean = false
 let BootText: TextSprite = null
 let InBoot = false
 let Command_List: string[] = []
+blockSettings.writeNumber("Library", 30)
+color.setColor(3, color.rgb(255, 170, 0))
+color.setColor(4, color.rgb(255, 170, 0))
 if (blockSettings.exists("Bootloader")) {
     Juno()
 } else {
@@ -1137,6 +2345,7 @@ if (blockSettings.exists("Bootloader")) {
     console.log("NOTE: Some Settings Might be installed that aren't listed below. Once setup finishes please use the  'Files' Command to view  all settings.")
     pause(500)
     console.log(" ")
+    blockSettings.writeString("Terminal", "f")
     blockSettings.writeString("Registry", "ver0.27.0")
     console.log("Registry {Installed}")
     pause(500)
@@ -1146,7 +2355,7 @@ if (blockSettings.exists("Bootloader")) {
     blockSettings.writeString("Directory", "Directory")
     console.log("Directory {Installed}")
     pause(500)
-    blockSettings.writeNumber("Version", 30)
+    blockSettings.writeNumber("Version", 32)
     console.log("Version {Installed}")
     pause(500)
     console.log(" ")

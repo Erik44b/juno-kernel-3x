@@ -1,12 +1,15 @@
 {
-    "name": "Juno Kernel 30",
+    "name": "Juno Kernel 32",
     "version": "0.2.0",
     "description": "",
     "dependencies": {
         "device": "*",
         "arcade-sprite-util": "github:jwunderl/arcade-sprite-util#v0.2.0",
         "settings-blocks": "github:microsoft/pxt-settings-blocks#v1.0.0",
-        "arcade-text": "github:microsoft/arcade-text#v1.3.0"
+        "arcade-text": "github:microsoft/arcade-text#v1.3.0",
+        "color": "*",
+        "Color Fading": "github:jwunderl/pxt-color#v0.2.2",
+        "block-menu-icon": "github:aqeeaqee/arcade-custom-menu#v0.0.3"
     },
     "files": [
         "main.blocks",
@@ -16,7 +19,9 @@
         "main.py",
         "tutorial-info-cache.json",
         "tilemap.g.jres",
-        "tilemap.g.ts"
+        "tilemap.g.ts",
+        "images.g.jres",
+        "images.g.ts"
     ],
     "testFiles": [
         "test.ts"
